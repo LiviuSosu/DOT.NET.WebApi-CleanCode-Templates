@@ -8,5 +8,7 @@ namespace Common
 {
     public class Configuration : IConfiguration
     {
+        private readonly string errorMessage;
+        public string ErrorMessage { get => errorMessage; }
     }
 }
