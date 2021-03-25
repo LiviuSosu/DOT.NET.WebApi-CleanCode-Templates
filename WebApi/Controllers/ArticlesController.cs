@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Common;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
@@ -11,6 +8,10 @@ namespace WebApi.Controllers
     [ApiController]
     public class ArticlesController : BaseController
     {
+        public ArticlesController(IConfiguration configuration, ILogger logger) :base(configuration, logger)
+        {
+        }
+
         [HttpGet]
         [Route("GetArticles")]
         public async Task<string> GetArticles()

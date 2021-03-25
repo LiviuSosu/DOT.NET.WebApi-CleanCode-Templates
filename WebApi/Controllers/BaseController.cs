@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Common;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,5 +13,13 @@ namespace WebApi.Controllers
         protected const int badRequestErrorCode = 400;
         protected const int notFoundErrorCode = 404;
         protected const int internalServerErrorCode = 500;
+
+        protected readonly IConfiguration _configuration;
+        protected readonly ILogger _logger;
+        public BaseController(IConfiguration configuration, ILogger logger)
+        {
+            _configuration = configuration;
+            _logger = logger;
+        }
     }
 }
