@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -8,16 +9,16 @@ namespace Persistance.Repository
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected DbContext<T> DbContext { get; set; }
+        protected DatabaseContext DbContext { get; set; }
 
-        public RepositoryBase(DbContext<T> careerTrackDbContext)
+        public RepositoryBase(DatabaseContext careerTrackDbContext)
         {
             this.DbContext = careerTrackDbContext;
         }
 
         public IQueryable<T> FindAll()
         {
-            return this.DbContext.Entities.AsQueryable<T>();
+            return this.DbContext.Set<T>().AsNoTracking();
         }
 
         //public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
