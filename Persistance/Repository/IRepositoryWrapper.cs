@@ -10,5 +10,7 @@ namespace Persistance.Repository
     public interface IRepositoryWrapper
     {
         IArticleRepository Article { get; }
+
+        Task SaveAsync();
     }
 }

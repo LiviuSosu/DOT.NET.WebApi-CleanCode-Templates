@@ -1,9 +1,4 @@
-﻿using Domain.Entities;
-using Persistance.Repository.ArticleRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Persistance.Repository.ArticleRepository;
 using System.Threading.Tasks;
 
 namespace Persistance.Repository
@@ -27,6 +22,11 @@ namespace Persistance.Repository
 
                 return _article;
             }
+        }
+
+        public async Task SaveAsync()
+        {
+            await _careerTrackDbContext.SaveChangesAsync();
         }
     }
 }

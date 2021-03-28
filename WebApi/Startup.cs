@@ -1,8 +1,12 @@
+using Application.Handlers;
 using Common;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Persistance.Repository;
+using System.Reflection;
 
 namespace WebApi
 {
@@ -20,6 +24,9 @@ namespace WebApi
         {
             services.AddSingleton<IConfiguration, Configuration>();
             services.Add(new ServiceDescriptor(typeof(ILogger), typeof(Logger), ServiceLifetime.Singleton));
+
+            //services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            //services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly);
             services.AddControllers();
         }
 

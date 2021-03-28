@@ -21,29 +21,29 @@ namespace Persistance.Repository
             return this.DbContext.Set<T>().AsNoTracking();
         }
 
-        //public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
-        //{
-        //    return this.DbContext.Set<T>().Where(expression).AsNoTracking();
-        //}
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
+        {
+            return this.DbContext.Set<T>().Where(expression).AsNoTracking();
+        }
 
-        //public async Task<T> FindByIdAsync(Guid Id)
-        //{
-        //    return await this.CareerTrackDbContext.Set<T>().FindAsync(Id);
-        //}
+        public async Task<T> FindByIdAsync(Guid Id)
+        {
+            return await this.DbContext.Set<T>().FindAsync(Id);
+        }
 
-        //public void Create(T entity)
-        //{
-        //    this.CareerTrackDbContext.Set<T>().Add(entity);
-        //}
+        public void Create(T entity)
+        {
+            this.DbContext.Set<T>().Add(entity);
+        }
 
-        //public void Update(T entity)
-        //{
-        //    this.CareerTrackDbContext.Set<T>().Update(entity);
-        //}
+        public void Update(T entity)
+        {
+            this.DbContext.Set<T>().Update(entity);
+        }
 
-        //public void Delete(T entity)
-        //{
-        //    this.CareerTrackDbContext.Set<T>().Remove(entity);
-        //}
+        public void Delete(T entity)
+        {
+            this.DbContext.Set<T>().Remove(entity);
+        }
     }
 }
