@@ -18,7 +18,7 @@ namespace Application.Handlers
         protected IRepositoryWrapper _repoWrapper;
         private readonly IRequestHandler<TRequest, Unit> _inner;
 
-        public BaseHandler(DatabaseContext context)
+        public BaseHandler(AppDatabaseContext context)
         {
             _repoWrapper = new RepositoryWrapper(context);
             var config = new MapperConfiguration(cfg =>

@@ -7,6 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Persistance.Repository;
 using System.Reflection;
+using Microsoft.Extensions.Configuration;
+using Persistance;
+using Microsoft.EntityFrameworkCore;
+using MediatR.Pipeline;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApi
 {
@@ -22,8 +27,18 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IConfiguration, Configuration>();
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
+
+            services.Add(new ServiceDescriptor(typeof(Common.IConfiguration), typeof(Configuration), ServiceLifetime.Singleton));
+            //services.AddSingleton<Common.IConfiguration, Configuration>();
             services.Add(new ServiceDescriptor(typeof(ILogger), typeof(Logger), ServiceLifetime.Singleton));
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+           // services.AddDbContext<AppDatabaseContext>();// (options =>
+            //  options.UseSqlServer("Data Source = DESKTOP-M80MDUC;Initial Catalog=TestDb;Integrated Security = True;"));
+            /*, migrations => migrations.MigrationsAssembly("CareerTrack.Migrations")*/
+            
 
             //services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             //services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly);

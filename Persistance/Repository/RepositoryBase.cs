@@ -9,9 +9,9 @@ namespace Persistance.Repository
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected DatabaseContext DbContext { get; set; }
+        protected AppDatabaseContext DbContext { get; set; }
 
-        public RepositoryBase(DatabaseContext careerTrackDbContext)
+        public RepositoryBase(AppDatabaseContext careerTrackDbContext)
         {
             this.DbContext = careerTrackDbContext;
         }

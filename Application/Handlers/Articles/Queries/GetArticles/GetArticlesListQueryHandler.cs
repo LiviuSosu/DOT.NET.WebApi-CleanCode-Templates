@@ -9,7 +9,7 @@ namespace Application.Handlers.Articles.Queries.GetArticles
 {
     public class GetArticlesListQueryHandler : BaseHandler<GetArticlesListQuery, ArticlesListViewModel>, IRequestHandler<GetArticlesListQuery, ArticlesListViewModel>
     {
-        public GetArticlesListQueryHandler(DatabaseContext context) : base(context)
+        public GetArticlesListQueryHandler(AppDatabaseContext context) : base(context)
         {
         }
 

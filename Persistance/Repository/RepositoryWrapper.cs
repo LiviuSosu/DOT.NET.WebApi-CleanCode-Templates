@@ -5,9 +5,9 @@ namespace Persistance.Repository
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private DatabaseContext _careerTrackDbContext;
+        private AppDatabaseContext _careerTrackDbContext;
         private IArticleRepository _article;
-        public RepositoryWrapper(DatabaseContext CareerTrackDbContext)
+        public RepositoryWrapper(AppDatabaseContext CareerTrackDbContext)
         {
             _careerTrackDbContext = CareerTrackDbContext;
         }

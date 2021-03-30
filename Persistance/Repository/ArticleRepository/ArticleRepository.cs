@@ -9,7 +9,7 @@ namespace Persistance.Repository.ArticleRepository
 {
     public class ArticleRepository : RepositoryBase<Article>, IArticleRepository
     {
-        public ArticleRepository(DatabaseContext careerTrackDbContext)
+        public ArticleRepository(AppDatabaseContext careerTrackDbContext)
         : base(careerTrackDbContext)
         {
         }
