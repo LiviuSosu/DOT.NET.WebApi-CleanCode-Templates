@@ -1,15 +1,9 @@
-using Application.Handlers;
 using Common;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Persistance.Repository;
-using System.Reflection;
-using Microsoft.Extensions.Configuration;
-using Persistance;
-using Microsoft.EntityFrameworkCore;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Http;
 
