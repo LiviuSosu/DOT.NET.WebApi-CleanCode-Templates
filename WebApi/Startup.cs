@@ -6,6 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Http;
+using Persistance;
+using Microsoft.EntityFrameworkCore;
+using Persistance.Repository;
 
 namespace WebApi
 {
@@ -24,17 +27,15 @@ namespace WebApi
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
 
             services.Add(new ServiceDescriptor(typeof(Common.IConfiguration), typeof(Configuration), ServiceLifetime.Singleton));
-            //services.AddSingleton<Common.IConfiguration, Configuration>();
+            services.AddSingleton<Common.IConfiguration, Configuration>();
             services.Add(new ServiceDescriptor(typeof(ILogger), typeof(Logger), ServiceLifetime.Singleton));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-           // services.AddDbContext<AppDatabaseContext>();// (options =>
-            //  options.UseSqlServer("Data Source = DESKTOP-M80MDUC;Initial Catalog=TestDb;Integrated Security = True;"));
-            /*, migrations => migrations.MigrationsAssembly("CareerTrack.Migrations")*/
-            
+            services.AddDbContext<AppDatabaseContext>(options =>
+            options.UseSqlServer("Data Source = DESKTOP-M80MDUC;Initial Catalog=TestDb;Integrated Security = True;"));
 
-            //services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             //services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly);
             services.AddControllers();
         }

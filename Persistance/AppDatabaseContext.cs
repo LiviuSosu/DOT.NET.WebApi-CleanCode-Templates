@@ -7,7 +7,7 @@ namespace Persistance
     {
         public DbSet<Article> Articles { get; set; }
 
-        public AppDatabaseContext(DbContextOptions<DbContext> options) : base(options)
+        public AppDatabaseContext(DbContextOptions<AppDatabaseContext> options) : base(options)
         {          
         }
 
