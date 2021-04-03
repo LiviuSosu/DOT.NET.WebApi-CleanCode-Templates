@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Persistance;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Repository;
+using Infrastructure;
 
 namespace WebApi
 {
@@ -25,6 +26,7 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
 
             services.Add(new ServiceDescriptor(typeof(Common.IConfiguration), typeof(Configuration), ServiceLifetime.Singleton));
             services.AddSingleton<Common.IConfiguration, Configuration>();
