@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Common;
+using MediatR;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,8 +9,14 @@ namespace Infrastructure
     public class RequestPerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
         private readonly Stopwatch _timer;
-        //private readonly ILogger<TRequest> _logger;
+        private readonly ILogger _logger;
 
+        public RequestPerformanceBehaviour(ILogger logger)
+        {
+            _timer = new Stopwatch();
+
+            _logger = logger;
+        }
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             _timer.Start();
@@ -20,9 +27,7 @@ namespace Infrastructure
 
             if (_timer.ElapsedMilliseconds > 500)
             {
-                var name = typeof(TRequest).Name;
-
-             //   _logger.LogWarning("Request Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}", name, _timer.ElapsedMilliseconds, request);
+                _logger.LogWarning(typeof(TRequest).Name, 500.ToString());
             }
 
             return response;
