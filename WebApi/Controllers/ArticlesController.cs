@@ -1,5 +1,10 @@
-﻿using Common;
+﻿using Application;
+using Application.Handlers.Articles.Queries.GetArticles;
+using Common;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Serilog.Events;
+using System;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
@@ -14,9 +19,19 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("GetArticles")]
-        public async Task<string> GetArticles()
+        public async Task<IActionResult> GetArticles([FromQuery] PagingModel paginationModel)
         {
-            return "test";
+            var actionName = ControllerContext.ActionDescriptor.ActionName;
+            try
+            {
+                _logger.LogMessage(actionName, JsonConvert.SerializeObject(paginationModel), LogEventLevel.Information);
+                return Ok(await Mediator.Send(new GetArticlesListQuery(paginationModel)));
+            }
+            catch (Exception exception)
+            {
+                _logger.LogException(exception, actionName, JsonConvert.SerializeObject(paginationModel));
+                return StatusCode(internalServerErrorCode, _configuration.ErrorMessage);
+            }
         }
     }
 }

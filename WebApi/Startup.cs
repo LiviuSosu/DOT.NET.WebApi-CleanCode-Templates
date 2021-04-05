@@ -10,6 +10,8 @@ using Persistance;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Repository;
 using Infrastructure;
+using Application.Handlers;
+using System.Reflection;
 
 namespace WebApi
 {
@@ -39,7 +41,7 @@ namespace WebApi
             options.UseSqlServer("Data Source = DESKTOP-M80MDUC;Initial Catalog=TestDb;Integrated Security = True;"));
 
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-            //services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly);
             services.AddControllers();
         }
 

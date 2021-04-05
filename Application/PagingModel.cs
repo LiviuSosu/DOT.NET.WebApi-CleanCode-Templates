@@ -1,5 +1,5 @@
 ﻿
-namespace Application.Handlers
+namespace Application
 {
     public class PagingModel
     {

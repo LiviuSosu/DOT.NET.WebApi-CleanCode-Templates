@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog.Events;
+using System;
 
 namespace Common
 {
@@ -6,8 +7,6 @@ namespace Common
     {
         void LogException(Exception exception, string actionName, string input);
 
-        void LogWarning(string methodName, string input);
-
-        void LogInformation(string methodName, string input);
+        void LogMessage(string methodName, string input, LogEventLevel logEventLevel);
     }
 }

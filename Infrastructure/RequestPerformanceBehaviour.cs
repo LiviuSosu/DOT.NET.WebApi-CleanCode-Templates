@@ -1,5 +1,6 @@
 ﻿using Common;
 using MediatR;
+using Serilog.Events;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace Infrastructure
 
             if (_timer.ElapsedMilliseconds > 500)
             {
-                _logger.LogWarning(typeof(TRequest).Name, 500.ToString());
+                _logger.LogMessage(typeof(TRequest).Name, 500.ToString(), LogEventLevel.Warning);
             }
 
             return response;
