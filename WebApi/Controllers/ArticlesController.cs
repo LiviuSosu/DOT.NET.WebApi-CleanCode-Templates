@@ -1,4 +1,5 @@
 ﻿using Application;
+using Application.Handlers.Articles.Queries.GetArticle;
 using Application.Handlers.Articles.Queries.GetArticles;
 using Common;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,24 @@ namespace WebApi.Controllers
             catch (Exception exception)
             {
                 _logger.LogException(exception, actionName, JsonConvert.SerializeObject(paginationModel));
+                return StatusCode(internalServerErrorCode, _configuration.ErrorMessage);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetArticle")]
+        public async Task<IActionResult> GetArticle([FromQuery] Guid Id)
+        {
+            var actionName = ControllerContext.ActionDescriptor.ActionName;
+
+            try
+            {
+                _logger.LogMessage(actionName, JsonConvert.SerializeObject(Id), LogEventLevel.Information);
+                return Ok(await Mediator.Send(new GetArticleQuery(Id)));
+            }
+            catch (Exception exception)
+            {
+                _logger.LogException(exception, actionName, JsonConvert.SerializeObject(Id));
                 return StatusCode(internalServerErrorCode, _configuration.ErrorMessage);
             }
         }
