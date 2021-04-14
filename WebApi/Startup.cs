@@ -31,8 +31,8 @@ namespace WebApi
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 
-            services.Add(new ServiceDescriptor(typeof(Common.IConfiguration), typeof(Configuration), ServiceLifetime.Singleton));
-            services.AddSingleton<Common.IConfiguration, Configuration>();
+            services.Add(new ServiceDescriptor(typeof(IConfiguration), typeof(Configuration), ServiceLifetime.Singleton));
+            services.AddSingleton<IConfiguration, Configuration>();
             services.Add(new ServiceDescriptor(typeof(ILogger), typeof(Logger), ServiceLifetime.Singleton));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

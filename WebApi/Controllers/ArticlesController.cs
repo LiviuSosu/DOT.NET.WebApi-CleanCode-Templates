@@ -1,8 +1,13 @@
 ﻿using Application;
+using Application.Exceptions;
+using Application.Handlers.Articles.Commands.Create;
+using Application.Handlers.Articles.Commands.Delete;
+using Application.Handlers.Articles.Commands.Update;
 using Application.Handlers.Articles.Queries.GetArticle;
 using Application.Handlers.Articles.Queries.GetArticles;
 using Common;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Serilog.Events;
 using System;
@@ -49,6 +54,75 @@ namespace WebApi.Controllers
             catch (Exception exception)
             {
                 _logger.LogException(exception, actionName, JsonConvert.SerializeObject(Id));
+                return StatusCode(internalServerErrorCode, _configuration.ErrorMessage);
+            }
+        }
+
+        [HttpPost]
+        [Route("AddArticle")]
+        public async Task<IActionResult> CreateArticle([FromBody] CreateArticleCommand command)
+        {
+            var actionName = ControllerContext.ActionDescriptor.ActionName;
+
+            try
+            {
+                _logger.LogMessage(actionName, JsonConvert.SerializeObject(command), LogEventLevel.Information);
+                return Ok(await Mediator.Send(command));
+            }
+            catch (ValidationException exception)
+            {
+                return StatusCode(badRequestErrorCode, JsonConvert.SerializeObject(exception.Failures));
+            }
+            catch (Exception exception)
+            {
+                _logger.LogException(exception, actionName, JsonConvert.SerializeObject(command) + " " + JsonConvert.SerializeObject(command));
+                return StatusCode(internalServerErrorCode, _configuration.ErrorMessage);
+            }
+        }
+
+        [HttpPut]
+        [Route("UpdateArticle")]
+        public async Task<IActionResult> UpdateArticle([FromBody] UpdateArticleCommand command)
+        {
+            var actionName = ControllerContext.ActionDescriptor.ActionName;
+            try
+            {
+                _logger.LogMessage(actionName, JsonConvert.SerializeObject(command), LogEventLevel.Information);
+                return Ok(await Mediator.Send(command));
+            }
+            catch (ValidationException exception)
+            {
+                return StatusCode(badRequestErrorCode, JsonConvert.SerializeObject(exception.Failures));
+            }
+            catch (Exception exception)
+            {
+                _logger.LogException(exception, actionName, JsonConvert.SerializeObject(command) + " " + JsonConvert.SerializeObject(command));
+                return StatusCode(internalServerErrorCode, _configuration.ErrorMessage);
+            }
+        }
+
+        [HttpDelete]
+        [Route("DeleteArticle")]
+        public async Task<IActionResult> DeleteArticle([FromBody] DeleteArticleCommand command)
+        {
+            var actionName = ControllerContext.ActionDescriptor.ActionName;
+            try
+            {
+                _logger.LogMessage(actionName, JsonConvert.SerializeObject(command), LogEventLevel.Information);
+                return Ok(await Mediator.Send(command));
+            }
+            catch (ValidationException exception)
+            {
+                return StatusCode(badRequestErrorCode, JsonConvert.SerializeObject(exception.Failures));
+            }
+            //catch (DbUpdateConcurrencyException exception)
+            //{
+            //    _logger.LogException(exception, actionName, JsonConvert.SerializeObject(command) + " " + JsonConvert.SerializeObject(command), Authorization);
+            //    return StatusCode(notFoundErrorCode, _configuration.DisplayObjectNotFoundErrorMessage);
+            //}
+            catch (Exception exception)
+            {
+                _logger.LogException(exception, actionName, JsonConvert.SerializeObject(command) + " " + JsonConvert.SerializeObject(command));
                 return StatusCode(internalServerErrorCode, _configuration.ErrorMessage);
             }
         }
