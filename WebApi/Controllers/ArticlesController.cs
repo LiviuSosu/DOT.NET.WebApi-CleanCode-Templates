@@ -115,11 +115,11 @@ namespace WebApi.Controllers
             {
                 return StatusCode(badRequestErrorCode, JsonConvert.SerializeObject(exception.Failures));
             }
-            //catch (DbUpdateConcurrencyException exception)
-            //{
-            //    _logger.LogException(exception, actionName, JsonConvert.SerializeObject(command) + " " + JsonConvert.SerializeObject(command), Authorization);
-            //    return StatusCode(notFoundErrorCode, _configuration.DisplayObjectNotFoundErrorMessage);
-            //}
+            catch (DbUpdateConcurrencyException exception)
+            {
+                _logger.LogException(exception, actionName, JsonConvert.SerializeObject(command) + " " + JsonConvert.SerializeObject(command));
+                return StatusCode(notFoundErrorCode, _configuration.DisplayObjectNotFoundErrorMessage);
+            }
             catch (Exception exception)
             {
                 _logger.LogException(exception, actionName, JsonConvert.SerializeObject(command) + " " + JsonConvert.SerializeObject(command));

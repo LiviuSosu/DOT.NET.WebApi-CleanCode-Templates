@@ -11,6 +11,9 @@ namespace Common
         private readonly string errorMessage;
         public string ErrorMessage { get => errorMessage; }
 
+        private readonly string displayObjectNotFoundErrorMessage;
+        public string DisplayObjectNotFoundErrorMessage { get => displayObjectNotFoundErrorMessage; }
+
         public Configuration()
         {
             string path = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
@@ -22,6 +25,7 @@ namespace Common
             loggingFilePath = root.GetSection("Logging").GetSection("loggingFilePath").Value;
 
             errorMessage = root.GetSection("Errors").GetSection("DisplayGenericUserErrorMessage").Value;
+            displayObjectNotFoundErrorMessage = root.GetSection("Errors").GetSection("DisplayObjectNotFoundErrorMessage").Value;
         }
     }
 }
