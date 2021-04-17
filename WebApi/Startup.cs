@@ -12,6 +12,8 @@ using Persistance.Repository;
 using Infrastructure;
 using Application.Handlers;
 using System.Reflection;
+using WebApi.Filters;
+using FluentValidation.AspNetCore;
 
 namespace WebApi
 {
@@ -43,6 +45,10 @@ namespace WebApi
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly);
             services.AddControllers();
+
+            services
+               .AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
+               .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<BaseValidator<object>>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
