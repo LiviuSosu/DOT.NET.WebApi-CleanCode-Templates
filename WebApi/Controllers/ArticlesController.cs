@@ -21,6 +21,7 @@ namespace WebApi.Controllers
     {
         public ArticlesController(IConfiguration configuration, ILogger logger) :base(configuration, logger)
         {
+            //test
         }
 
         [HttpGet]
