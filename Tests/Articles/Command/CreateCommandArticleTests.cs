@@ -14,6 +14,7 @@ namespace Tests.Articles.Command
         [Fact]
         public async Task CreateArticleSuccessTest()
         {
+            //test main branch
             var sut = new CreateArticleCommandHandler(db);
             var createArticleCommand = new CreateArticleCommand
             {
