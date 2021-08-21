@@ -6,7 +6,7 @@ namespace Persistance
     public class AppDatabaseContext : DbContext
     {
         public DbSet<Article> Articles { get; set; }
-
+        //todo remove this
         public AppDatabaseContext(DbContextOptions<AppDatabaseContext> options) : base(options)
         {          
         }
